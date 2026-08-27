@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پخش علیزاده | پخش عمده لوازم جانبی موبایل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1220;
+    --surface: #121B2E;
+    --surface-2: #17233A;
+    --line: #24304A;
+    --accent: #4C7DFF;
+    --accent-2: #C9A227;
+    --text: #E7ECF5;
+    --muted: #8B97AC;
+    --radius: 14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Vazirmatn', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,18,32,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;}
+  .logo{font-weight:800;font-size:20px;letter-spacing:.5px;display:flex;align-items:center;gap:10px;}
+  .logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#7AA0FF);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#0B1220;}
+  nav.links{display:flex;gap:32px;font-size:15px;color:var(--muted);}
+  nav.links a:hover{color:var(--text);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:#fff;font-weight:600;font-size:14.5px;
+    padding:11px 22px;border-radius:999px;border:none;cursor:pointer;
+    transition:transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 8px 24px -8px rgba(76,125,255,.6);
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(76,125,255,.8);}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);box-shadow:none;}
+  .btn.ghost:hover{border-color:var(--accent);}
+  .mobile-toggle{display:none;}
+
+  /* Hero */
+  .hero{
+    position:relative;
+    padding:100px 24px 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;
+    max-width:1180px;margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--accent-2);font-size:13.5px;font-weight:600;
+    background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-2);}
+  h1{
+    font-size:48px;font-weight:800;line-height:1.35;letter-spacing:-0.5px;
+    margin-bottom:20px;
+  }
+  h1 span{color:var(--accent);}
+  .hero p.lead{
+    font-size:17.5px;color:var(--muted);max-width:520px;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;gap:14px;margin-bottom:46px;}
+  .hero-stats{display:flex;gap:36px;}
+  .hstat b{display:block;font-size:26px;font-weight:800;}
+  .hstat span{font-size:13px;color:var(--muted);}
+
+  /* Signature: connection diagram */
+  .conn-wrap{position:relative;height:420px;}
+  .conn-wrap svg{width:100%;height:100%;}
+  .node-label{
+    position:absolute;background:var(--surface);border:1px solid var(--line);
+    border-radius:12px;padding:10px 14px;font-size:13px;font-weight:600;
+    display:flex;align-items:center;gap:8px;box-shadow:0 10px 30px -12px rgba(0,0,0,.6);
+    opacity:0;transform:translateY(6px);
+    animation:riseIn .6s ease forwards;
+  }
+  .node-icon{width:20px;height:20px;flex:none;}
+  @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+  .conn-path{
+    fill:none;stroke:url(#lineGrad);stroke-width:2;
+    stroke-dasharray:600;stroke-dashoffset:600;
+    animation:draw 2.2s ease forwards .3s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  .hub{
+    position:absolute;top:50%;right:50%;transform:translate(50%,-50%);
+    width:96px;height:96px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #7AA0FF, var(--accent) 60%, #2E52B0);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:13px;color:#08101f;text-align:center;
+    box-shadow:0 0 0 10px rgba(76,125,255,.08), 0 0 60px rgba(76,125,255,.35);
+  }
+  .pulse{
+    position:absolute;border-radius:50%;width:6px;height:6px;background:var(--accent-2);
+    box-shadow:0 0 8px var(--accent-2);
+    offset-path:none;
+  }
+
+  @media(prefers-reduced-motion: reduce){
+    .conn-path,.node-label{animation:none !important;opacity:1;stroke-dashoffset:0;}
+  }
+
+  /* Section shared */
+  section{padding:90px 0;}
+  .section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  .section-head h2{font-size:32px;font-weight:800;margin-bottom:14px;}
+  .section-head p{color:var(--muted);font-size:16px;}
+
+  /* Stats bar */
+  .stats-bar{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:44px 0;
+  }
+  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+  .stats-row b{display:block;font-size:30px;font-weight:800;color:var(--accent);}
+  .stats-row span{color:var(--muted);font-size:13.5px;}
+
+  /* Products */
+  .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .prod-card{
+    display:block;
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 26px;transition:transform .25s ease, border-color .25s ease;
+  }
+  .prod-card:hover{transform:translateY(-4px);border-color:var(--accent);}
+  .prod-icon{
+    width:52px;height:52px;border-radius:12px;background:var(--surface-2);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+    color:var(--accent);
+  }
+  .prod-card h3{font-size:18px;font-weight:700;margin-bottom:10px;}
+  .prod-card p{color:var(--muted);font-size:14.5px;}
+
+  /* Why us */
+  .why-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;}
+  .why-list{display:flex;flex-direction:column;gap:26px;}
+  .why-item{display:flex;gap:18px;}
+  .why-num{
+    flex:none;width:42px;height:42px;border-radius:10px;
+    background:var(--surface-2);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--accent-2);
+  }
+  .why-item h4{font-size:16.5px;font-weight:700;margin-bottom:6px;}
+  .why-item p{color:var(--muted);font-size:14.5px;}
+  .why-panel{
+    background:linear-gradient(160deg,var(--surface),var(--surface-2));
+    border:1px solid var(--line);border-radius:20px;padding:40px;
+  }
+  .why-panel .quote{font-size:19px;font-weight:600;line-height:1.9;margin-bottom:22px;}
+  .why-panel .cite{color:var(--muted);font-size:14px;}
+
+  /* Process */
+  .process-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .process-row::before{
+    content:'';position:absolute;top:26px;right:12%;left:12%;height:1px;
+    background:repeating-linear-gradient(to left, var(--line) 0 8px, transparent 8px 16px);
+  }
+  .p-step{text-align:center;padding:0 14px;position:relative;background:var(--bg);}
+  .p-num{
+    width:52px;height:52px;border-radius:50%;background:var(--surface);border:1px solid var(--accent);
+    color:var(--accent);font-weight:800;display:flex;align-items:center;justify-content:center;
+    margin:0 auto 18px;font-size:17px;position:relative;z-index:2;
+  }
+  .p-step h4{font-size:15.5px;font-weight:700;margin-bottom:8px;}
+  .p-step p{color:var(--muted);font-size:13.5px;}
+
+  /* CTA */
+  .cta-box{
+    background:linear-gradient(135deg, var(--surface-2), var(--surface));
+    border:1px solid var(--line);border-radius:24px;
+    padding:56px;display:flex;align-items:center;justify-content:space-between;gap:30px;
+  }
+  .cta-box h3{font-size:26px;font-weight:800;margin-bottom:10px;}
+  .cta-box p{color:var(--muted);font-size:15px;}
+  .cta-actions{display:flex;gap:14px;flex:none;}
+
+  footer{border-top:1px solid var(--line);padding:50px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  .foot-col h5{font-size:14px;margin-bottom:16px;color:var(--muted);font-weight:600;}
+  .foot-col a,.foot-col p{display:block;color:var(--text);font-size:14.5px;margin-bottom:10px;opacity:.85;}
+  .foot-col a:hover{color:var(--accent);}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;color:var(--muted);font-size:13px;}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .conn-wrap{height:280px;}
+    nav.links{display:none;}
+    h1{font-size:34px;}
+    .stats-row{grid-template-columns:repeat(2,1fr);gap:30px;}
+    .prod-grid{grid-template-columns:1fr 1fr;}
+    .why-wrap{grid-template-columns:1fr;}
+    .process-row{grid-template-columns:1fr 1fr;gap:30px;}
+    .process-row::before{display:none;}
+    .cta-box{flex-direction:column;text-align:center;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:520px){
+    .prod-grid{grid-template-columns:1fr;}
+    .process-row{grid-template-columns:1fr;}
+    .hero-stats{flex-wrap:wrap;gap:22px;}
+    .foot-grid{grid-template-columns:1fr;}
+  }
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="logo"><div class="logo-mark">ع</div>پخش علیزاده</div>
+    <nav class="links">
+      <a href="#products">محصولات</a>
+      <a href="#why">چرا ما</a>
+      <a href="#process">فرآیند سفارش</a>
+      <a href="#contact">تماس</a>
+    </nav>
+    <a href="#contact" class="btn">ثبت سفارش عمده</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-grid wrap">
+    <div>
+      <div class="eyebrow">پخش عمده و مویرگی لوازم جانبی موبایل</div>
+      <h1>از یک <span>مرکز پخش</span>،<br>به هزاران فروشگاه سراسر کشور</h1>
+      <p class="lead">پخش علیزاده تأمین‌کننده عمده قاب، شارژر، کابل، هندزفری و محافظ صفحه برای فروشگاه‌های موبایل، سوپرمارکت‌ها و فروشندگان اینترنتی است؛ با تحویل سریع و قیمت پخش مستقیم از انبار.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">دریافت لیست قیمت عمده</a>
+        <a href="#products" class="btn ghost">مشاهده محصولات</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><b>+۱۲</b><span>سال سابقه پخش</span></div>
+        <div class="hstat"><b>+۸۰۰</b><span>فروشگاه همکار</span></div>
+        <div class="hstat"><b>+۲۵۰</b><span>قلم کالای فعال</span></div>
+      </div>
+    </div>
+
+    <div class="conn-wrap" aria-hidden="true">
+      <svg viewBox="0 0 400 420">
+        <defs>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4C7DFF"/>
+            <stop offset="100%" stop-color="#C9A227"/>
+          </linearGradient>
+        </defs>
+        <path class="conn-path" d="M200,210 C120,150 80,120 60,60"/>
+        <path class="conn-path" d="M200,210 C280,150 320,120 340,60" style="animation-delay:.5s"/>
+        <path class="conn-path" d="M200,210 C130,250 90,290 50,340" style="animation-delay:.7s"/>
+        <path class="conn-path" d="M200,210 C270,250 310,290 350,340" style="animation-delay:.9s"/>
+        <path class="conn-path" d="M200,210 C200,270 200,300 200,370" style="animation-delay:1.1s"/>
+      </svg>
+      <div class="hub">پخش<br>علیزاده</div>
+      <div class="node-label" style="top:6%;right:2%;animation-delay:1s;">🔌 شارژر و کابل</div>
+      <div class="node-label" style="top:6%;left:0%;animation-delay:1.2s;">📱 قاب موبایل</div>
+      <div class="node-label" style="bottom:12%;right:0%;animation-delay:1.4s;">🎧 هندزفری</div>
+      <div class="node-label" style="bottom:12%;left:0%;animation-delay:1.6s;">🛡️ محافظ صفحه</div>
+      <div class="node-label" style="bottom:-2%;right:32%;animation-delay:1.8s;">🔋 پاوربانک</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar wrap">
+  <div class="stats-row">
+    <div><b>۲۴</b><span>ساعت پردازش سفارش</span></div>
+    <div><b>۳۱</b><span>استان تحت پوشش ارسال</span></div>
+    <div><b>۱۸</b><span>ماه گارانتی برندهای منتخب</span></div>
+    <div><b>۱۰۰٪</b><span>ضمانت اصالت کالا</span></div>
+  </div>
+</div>
+
+<section id="products">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="margin:0 auto 16px;display:inline-flex;">دسته‌بندی محصولات</div>
+      <h2>هرچی برای شارژ، محافظت و اتصال گوشی لازمه</h2>
+      <p>موجودی به‌روز از برندهای معتبر، برای عرضه در فروشگاه یا فروش آنلاین.</p>
+    </div>
+    <div class="prod-grid">
+      <a class="prod-card" href="case.html">
+        <div class="prod-icon">📱</div>
+        <h3>قاب و کاور موبایل</h3>
+        <p>قاب‌های ضدضربه، ژله‌ای و چرمی برای پرفروش‌ترین مدل‌های روز بازار.</p>
+      </a>
+      <a class="prod-card" href="charger.html">
+        <div class="prod-icon">⚡</div>
+        <h3>شارژر و کابل شارژ</h3>
+        <p>شارژر دیواری، فست‌شارژ و کابل‌های Type-C، لایتنینگ و میکرو با گارانتی.</p>
+      </a>
+      <a class="prod-card" href="headphones.html">
+        <div class="prod-icon">🎧</div>
+        <h3>هندزفری و هدفون</h3>
+        <p>هندزفری سیمی و بی‌سیم، از اقتصادی تا مدل‌های حرفه‌ای نویزکنسلینگ.</p>
+      </a>
+      <a class="prod-card" href="screen-protector.html">
+        <div class="prod-icon">🛡️</div>
+        <h3>محافظ صفحه و لنز</h3>
+        <p>گلس و محافظ نانو برای انواع گوشی، همراه با ست نصب.</p>
+      </a>
+      <a class="prod-card" href="powerbank.html">
+        <div class="prod-icon">🔋</div>
+        <h3>پاوربانک</h3>
+        <p>پاوربانک‌های فست‌شارژ در ظرفیت‌های مختلف برای مصرف روزمره و سفر.</p>
+      </a>
+      <a class="prod-card" href="accessories.html">
+        <div class="prod-icon">🧰</div>
+        <h3>لوازم جانبی متفرقه</h3>
+        <p>هولدر، رینگ، کارت حافظه و سایر اکسسوری‌های پرتقاضای فروشگاهی.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap why-wrap">
+    <div class="why-list">
+      <div class="why-item">
+        <div class="why-num">✓</div>
+        <div><h4>قیمت مستقیم پخش</h4><p>حذف واسطه‌های اضافه؛ قیمت عمده واقعی برای فروشگاه‌داران.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">✓</div>
+        <div><h4>موجودی پایدار انبار</h4><p>سفارش‌های شما بدون توقف طولانی و کمبود کالا تأمین می‌شود.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">✓</div>
+        <div><h4>ارسال به سراسر کشور</h4><p>بسته‌بندی مطمئن و همکاری با باربری و پست پیشتاز برای همه شهرها.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">✓</div>
+        <div><h4>مشاور فروش اختصاصی</h4><p>هر مشتری عمده یک کارشناس ثابت برای پیگیری سفارش‌ها دارد.</p></div>
+      </div>
+    </div>
+    <div class="why-panel">
+      <p class="quote">«همکاری با پخش علیزاده باعث شد موجودی فروشگاهم همیشه به‌روز بمونه و دیگه نگران کمبود جنس نباشم.»</p>
+      <p class="cite">— نمونه بازخورد یک فروشگاه همکار</p>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow" style="margin:0 auto 16px;display:inline-flex;">فرآیند سفارش</div>
+      <h2>از ثبت سفارش تا رسیدن به دستتون</h2>
+    </div>
+    <div class="process-row">
+      <div class="p-step"><div class="p-num">۱</div><h4>ثبت سفارش</h4><p>تماس یا پیام در واتساپ با شماره تماس</p></div>
+      <div class="p-step"><div class="p-num">۲</div><h4>تأیید و فاکتور</h4><p>ارسال لیست قیمت و پیش‌فاکتور</p></div>
+      <div class="p-step"><div class="p-num">۳</div><h4>بسته‌بندی</h4><p>بسته‌بندی ایمن در انبار مرکزی</p></div>
+      <div class="p-step"><div class="p-num">۴</div><h4>ارسال</h4><p>تحویل به باربری یا پست پیشتاز</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta-box">
+      <div>
+        <h3>آماده همکاری با پخش علیزاده هستید؟</h3>
+        <p>لیست قیمت به‌روز رو همین امروز از طریق تماس یا واتساپ دریافت کنید.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:+982100000000" class="btn">تماس تلفنی</a>
+        <a href="#" class="btn ghost">پیام در واتساپ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h5>پخش علیزاده</h5>
+        <p style="opacity:.7;">پخش عمده و مویرگی لوازم جانبی موبایل در سراسر کشور.</p>
+      </div>
+      <div class="foot-col">
+        <h5>لینک‌ها</h5>
+        <a href="#products">محصولات</a>
+        <a href="#why">چرا ما</a>
+        <a href="#process">فرآیند سفارش</a>
+      </div>
+      <div class="foot-col">
+        <h5>تماس</h5>
+        <p style="opacity:.85;">تهران، بازار موبایل (نمونه آدرس)</p>
+        <p style="opacity:.85;">۰۲۱-۰۰۰۰۰۰۰ (نمونه شماره)</p>
+      </div>
+      <div class="foot-col">
+        <h5>ساعات کاری</h5>
+        <p style="opacity:.85;">شنبه تا پنجشنبه</p>
+        <p style="opacity:.85;">۹ صبح تا ۷ عصر</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© ۱۴۰۴ پخش علیزاده. تمامی حقوق محفوظ است.</span>
+      <span>طراحی نمونه — محتوا جایگزین‌پذیر است</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
